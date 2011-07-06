@@ -1,0 +1,43 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3656
+
+Swap two words. Simulate the M-t (transpose-words) in Emacs or Bash.
+
+Usage:
+  Just press <M-t> (Alt-t) in insert mode, normal mode or command-line.
+  count is also supported. 8<M-t> will push the word befor the cursor right 8 times
+  repeat.vim (vimscript #2136) is also supported. When it present, press dot
+  (.) in nornal mode will repeat the this function.
+
+Note:
+In gvim, <M-t> may open menu, this can be disabled by 
+:set winaltkeys=no
+In the console, <M-t> may just doesn't work, you can enable it by
+:exec "set <M-t>=\<Esc>t"
+In some terminal such as gnome-terminal, <M-t> may open the menu of the
+terminal, this can be disable in the configuration of the terminal.
+
+or you may change the <M-t> to other keys such as <Leader>t
+:nmap <Leader>t <Plug>Transposewords
+:imap <Leader>t <Plug>Transposewords
+:cmap <Leader>t <Plug>Transposewords
+Typically, <Leader> is slash '\&#039, you can press \t to do the same work.
+Put these in startup file as you like.
+
+This script act more liky M-t in Bash than M-t in Emacs.
+
+I have checked http://vim.wikia.com/wiki/VimTip47 and swap #3250. In these
+solutions, either changes cannot be undo nicely, or the search history are
+changed, and many other difference from the M-t in bash.
+
+Advantages:
+  1. `foo| != ba|r`: when the cursor is between two bar ('|'), and M-t
+     pressed, `foo` and `bar` will be transposed. (same as in bash)
+  2. `bar foo|`: when the two words are transposed, the cursor will be
+     right after the second word `foo`. (same as in bash)
+  3. Correctly undo the cursor position.
+  4. Does not change the search ('/' or '?') history.
+  5. Also work on command-line.
+     Note: On a input() command-line with '=' prompt, it does not work.
+  6. The pattern which match the words are customizable. (default '\k\+',
+     set g:transwrd_wordpattern in startup file.)
+
